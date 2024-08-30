@@ -6,3 +6,10 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
+
+model File { 
+    id           String       @id @default(cuid())
+    name         String
+    type         String
+    data         Bytes
+}
