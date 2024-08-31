@@ -1,7 +1,7 @@
 import { prisma } from "../config/prisma.js"
 import { uploadMulter } from "../config/uploadMulter.js"
 
-async function addFile(req, res) {
+export async function addFile(req, res) {
     uploadMulter.single('file')(req, res, async (err) => {
         const { originalname, mimetype } = req.file
         try {
@@ -21,7 +21,7 @@ async function addFile(req, res) {
     })
 }
 
-async function getFileById(req, res) {
+export async function getFileById(req, res) {
     const { id } = req.params;
 
     try {
@@ -39,7 +39,7 @@ async function getFileById(req, res) {
 
 }
 
-async function deleteFileById(params) {
+export async function deleteFileById(req, res) {
     const { id } = req.params;
 
     try {
@@ -51,10 +51,4 @@ async function deleteFileById(params) {
     } catch (error) {
         return res.status(400).json({ error: error.message });            
     }
-}
-
-
-export { 
-    addFile,
-    getFileById
 }
