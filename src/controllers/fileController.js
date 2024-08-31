@@ -36,7 +36,6 @@ export async function getFileById(req, res) {
     } catch (error) {
         return res.status(400).json({ error: error.message });            
     }
-
 }
 
 export async function deleteFileById(req, res) {
@@ -48,6 +47,25 @@ export async function deleteFileById(req, res) {
         })
 
         return res.send(deleteFile)
+    } catch (error) {
+        return res.status(400).json({ error: error.message });            
+    }
+}
+
+export async function downloadFileById(req, res) {
+    const { fileId } = req.params;
+
+    try {
+        const file = await prisma.file.findUnique({ 
+            where: { id: fileId }
+        })
+
+        if (!file) return res.status(404).json({ error: 'File Not Found' });
+        
+        res.setHeader('Content-Disposition', `attachment; filename="${file.name}"`);
+        res.setHeader('Content-Type', 'application/octet-stream');
+
+        return res.send(file.data);
     } catch (error) {
         return res.status(400).json({ error: error.message });            
     }

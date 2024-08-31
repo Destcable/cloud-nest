@@ -8,8 +8,8 @@ const port = process.env.PORT;
 
 const app = express();
 app.use(express.json());
-app.use('/api', fileRouter)
-app.use(docRoutes)
+app.use('/api', fileRouter);
+app.use(docRoutes);
 
 app.listen(port, () => { 
     console.log(`☁️  CloudNest | service start (port: ${port})`)
